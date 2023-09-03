@@ -31,3 +31,47 @@ kubectl create secret generic jwt-secret --from -literal=JWT_KEY='abcd'
 "email":"sachin@gmail.com",
 "password":"Test@123"
 }
+
+```
+FROM node:alpine
+
+WORKDIR /app
+COPY package.json .
+RUN npm install --omit=dev
+COPY . .
+
+CMD ["npm", "start"]
+```
+
+
+In the upcoming lecture, we will be setting up our test environment with MongoMemoryServer. If you are using the latest versions of this library a few changes will be required:
+
+In auth/src/test/setup.ts, change these lines:
+
+  mongo = new MongoMemoryServer();
+  const mongoUri = await mongo.getUri();
+to this:
+
+  mongo = await MongoMemoryServer.create();
+  const mongoUri = mongo.getUri();
+
+
+Remove the useNewUrlParser and useUnifiedTopology parameters from the connect method. Change this:
+
+  await mongoose.connect(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+to this:
+
+  await mongoose.connect(mongoUri, {});
+
+
+Then, find the afterAll hook and add a conditional check:
+
+afterAll(async () => {
+  if (mongo) {
+    await mongo.stop();
+  }
+  await mongoose.connection.close();
+});
