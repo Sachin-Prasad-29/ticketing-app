@@ -6,7 +6,7 @@ it('Fails when a email that does not exist is supplied', async () => {
         .post('/api/users/signin')
         .send({
             email: 'sachin@gmail.com',
-            password: 'test@124'
+            password: 'password'
         })
         .expect(400);
 });
@@ -24,7 +24,7 @@ it('fails when an incorrect password is supplied', async () => {
         .post('/api/users/signin')
         .send({
             email: 'sachin@gmail.com',
-            password: 'padfsgsssword'
+            password: 'password1'
         })
         .expect(400);
 });
