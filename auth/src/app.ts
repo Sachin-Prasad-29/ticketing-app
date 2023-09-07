@@ -6,8 +6,7 @@ import { currentUserRouter } from './routes/current-user';
 import { signUpRouter } from './routes/signup';
 import { signInRouter } from './routes/signin';
 import { signOutRouter } from './routes/signout';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors/not-found-error';
+import { errorHandler, NotFoundError } from '@skptickets/common';
 
 const app = express();
 app.set('trust proxy', true);
