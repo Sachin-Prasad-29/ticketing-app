@@ -2,11 +2,8 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { currentUserRouter } from './routes/current-user';
-import { signUpRouter } from './routes/signup';
-import { signInRouter } from './routes/signin';
-import { signOutRouter } from './routes/signout';
-import { errorHandler, NotFoundError } from '@skptickets/common';
+import { errorHandler, NotFoundError, currentUser } from '@skptickets/common';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -17,10 +14,11 @@ app.use(
         secure: process.env.NODE_ENV !== 'test'
     })
 );
-app.use(currentUserRouter);
-app.use(signUpRouter);
-app.use(signInRouter);
-app.use(signOutRouter);
+
+app.use(currentUser);
+
+app.use(createTicketRouter);
+
 app.all('*', async () => {
     throw new NotFoundError();
 });

@@ -129,3 +129,38 @@ const Landing = () => {
  
 export default Landing;
 The warning will come up a few more times in this project (and throughout the course) when creating components and can be handled similarly.
+
+
+Change this code in client/pages/index.js
+
+const LandingPage = ({ currentUser }) => {
+  console.log(currentUser);
+  axios.get('/api/users/currentuser');
+ 
+  return <h1>Landing Page</h1>;
+};
+to this:
+
+const LandingPage = ({ currentUser }) => {
+  console.log(currentUser);
+  axios.get('/api/users/currentuser').catch((err) => {
+    console.log(err.message);
+  });
+ 
+  return <h1>Landing Page</h1>;
+};
+
+
+In the upcoming lecture, we will be adding a Link to our Header. In Next.js v13, using an <a> tag will cause an error:
+
+Error: Invalid <Link> with <a> child. Please remove <a> or use <Link legacyBehavior>.
+
+Learn more: https://nextjs.org/docs/messages/invalid-new-link-with-extra-anchor
+
+To resolve this, we need to remove the <a> and move the className up to the Link component:
+
+
+
+<Link className="navbar-brand" href="/">
+  GitTix
+</Link>
