@@ -164,3 +164,6 @@ To resolve this, we need to remove the <a> and move the className up to the Link
 <Link className="navbar-brand" href="/">
   GitTix
 </Link>
+
+
+RabbitMQ, Kafka and NATS streaming server
