@@ -6,7 +6,7 @@ import {
     requireAuth,
     NotAuthorizedError
 } from '@skptickets/common';
-import { Ticket } from '../../models/ticket';
+import { Ticket } from '../models/ticket';
 
 const router = express.Router();
 
